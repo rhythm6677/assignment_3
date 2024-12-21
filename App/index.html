@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Function to load mechanics from the database
+        async function loadMechanics() {
+            try {
+                const response = await fetch('load_mechanics.php');
+                const mechanics = await response.json();
+
+                const mechanicSelect = document.getElementById('mechanic');
+                mechanicSelect.innerHTML = '<option value="">Choose a mechanic</option>'; // Default option
+
+                mechanics.forEach(mechanic => {
+                    const option = document.createElement('option');
+                    option.value = mechanic.id; // Use mechanic ID as the value
+                    option.textContent = mechanic.name;
+                    mechanicSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading mechanics:', error);
+            }
+        }
+
+        // Load mechanics when the page is ready
+        document.addEventListener('DOMContentLoaded', loadMechanics);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Book an Appointment</h1>
+        <form action="submit_appointment.php" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="license">Car License Number</label>
+                <input type="text" id="license" name="license" placeholder="Enter your car license number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="engine">Car Engine Number</label>
+                <input type="text" id="engine" name="engine" placeholder="Enter your car engine number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Appointment Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mechanic">Select Mechanic</label>
+                <select id="mechanic" name="mechanic" required>
+                    <option value="">Loading mechanics...</option>
+                </select>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <div class="form-footer">
+            <p>Need help? Contact us at rhythm6677@gmail.com</p>
+        </div>
+    </div>
+</body>
+</html>

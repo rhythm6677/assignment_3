@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Panel</h1>
+        <table class="appointments-table">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Phone</th>
+                    <th>Car Registration</th>
+                    <th>Appointment Date</th>
+                    <th>Mechanic Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="appointment-table-body"></tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch mechanics data first
+        fetch('load_mechanics.php')
+            .then(response => response.json())
+            .then(mechanicsData => {
+                // Store mechanics data globally
+                window.mechanics = mechanicsData; 
+
+                // Fetch and display appointments
+                fetch('fetch_appointments.php')
+                    .then(response => response.json())
+                    .then(appointments => {
+                        const tableBody = document.getElementById('appointment-table-body');
+                        appointments.forEach(appointment => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${appointment.client_name}</td>
+                                <td>${appointment.phone}</td>
+                                <td>${appointment.license}</td>
+                                <td>
+                                    <input type="date" value="${appointment.appointment_date}" name="appointment_date">
+                                </td>
+                                <td>
+                                    <select name="mechanic_id">
+                                        ${mechanicsData.map(mechanic => 
+                                            `<option value="${mechanic.id}" ${mechanic.id === appointment.mechanic_id ? 'selected' : ''}>${mechanic.name}</option>`
+                                        ).join('')}
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="save-btn" data-id="${appointment.id}">Save</button>
+                                </td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+
+                        // Handle save button clicks
+                        const saveButtons = document.querySelectorAll('.save-btn');
+                        saveButtons.forEach(button => {
+                            button.addEventListener('click', async () => { 
+                                const row = button.parentNode.parentNode;
+                                const appointmentId = button.dataset.id;
+                                const newDate = row.querySelector('input[name="appointment_date"]').value;
+                                const newMechanicId = row.querySelector('select[name="mechanic_id"]').value;
+
+                                // Send update request to server
+                                try {
+                                    const response = await fetch('update_appointment.php', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            id: appointmentId,
+                                            date: newDate,
+                                            mechanic_id: newMechanicId
+                                        })
+                                    });
+
+                                    if (!response.ok) {
+                                        throw new Error(`HTTP error! status: ${response.status}`);
+                                    }
+
+                                    const data = await response.json(); 
+                                    console.log(data.message); // Handle success message
+
+                                } catch (error) {
+                                    console.error('Error updating appointment:', error); 
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching appointments:', error);
+                    });
+            })
+            .catch(error => {
+                console.error('Error fetching mechanics:', error);
+            });
+    </script>
+</body>
+</html>

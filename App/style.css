@@ -1,0 +1,171 @@
+/* style.css */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(150deg, #f0f4f8, #d9e2ec);
+    color: #333;
+}
+
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 20px 90px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 26px;
+    color: #0077cc;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input[type="text"], input[type="date"], input[type="tel"], select {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+input[type="text"]:focus, input[type="date"]:focus, input[type="tel"]:focus, select:focus {
+    border-color: #0077cc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+select {
+    cursor: pointer;
+    appearance: none;
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 12px center / 14px 14px;
+}
+
+button {
+    width: 100%;
+    padding: 12px 20px;
+    background: #0077cc;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+    background: #005fa3;
+}
+
+.form-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+
+
+
+
+/* Admin */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f9fc;
+    color: #333;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #0077cc;
+    margin-bottom: 20px;
+}
+
+/* Table */
+.appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.appointments-table thead {
+    background-color: #0077cc;
+    color: #fff;
+}
+
+.appointments-table th, .appointments-table td {
+    padding: 12px 25px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.appointments-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.appointments-table tbody tr:hover {
+    background-color: #f1f7ff;
+}
+
+/* Input and Select */
+input[type="date"], select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input[type="date"]:focus, select:focus {
+    border-color: #0077cc;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+.save-btn {
+    padding: 8px 12px;
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.save-btn:hover {
+    background-color: #005fa3;
+}
+
